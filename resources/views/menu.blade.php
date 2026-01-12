@@ -16,7 +16,7 @@
 
         {{-- NAMA --}}
         <h2 class="text-2xl font-bold mt-4 capitalize">{{ $nama }}</h2>
-        <p class="text-gray-500 mb-6">Siswa XI RPL</p>
+        <p class="text-gray-500 mb-6">Siswa XII RPL</p>
 
         {{-- BIODATA --}}
         <div class="text-left space-y-2">
@@ -29,7 +29,7 @@
             @if($nama == 'rasya')
                 <p><b>Nama:</b> Rasya</p>
                 <p><b>Umur:</b> 16 Tahun</p>
-                <p><b>Hobi:</b> (isi sendiri)</p>
+                <p><b>Hobi:</b> Doni nama bapaku</p>
 
             @endif
 
