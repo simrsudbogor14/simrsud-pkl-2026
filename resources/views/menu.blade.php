@@ -22,20 +22,31 @@
         <div class="text-left space-y-2">
             @if($nama == 'bian')
                 <p><b>Nama:</b> Bian</p>
-                <p><b>Umur:</b> 16 Tahun</p>
-                <p><b>Hobi:</b> Ngoding</p>
+                <p><b>Tempat/Tanggal Lahir:</b> Bogor, 16 Juli 2008</p>
+                <p><b>Kelas:</b> XII RPL</p>
+                <p><b>Umur:</b> 17 Tahun</p>
+                <p><b>Hobi:</b> Game</p>
+                <p><b>Alamat:</b> Cemplang Baru Cilendek Barat, Bogor</p>
+                <p><b>No HP:</b> 081290223039</p>
+                <p><b>Email:</b> madefabian882@gmail.com</p>
             @endif
 
             @if($nama == 'rasya')
                 <p><b>Nama:</b> Rasya</p>
                 <p><b>Umur:</b> 16 Tahun</p>
                 <p><b>Hobi:</b> (isi sendiri)</p>
+
             @endif
 
             @if($nama == 'faiq')
-                <p><b>Nama:</b> Faiq</p>
-                <p><b>Umur:</b> 16 Tahun</p>
-                <p><b>Hobi:</b> (isi sendiri)</p>
+                <p><b>Nama:</b> Azzam Faiq Ilmi</p>
+                <p><b>Tempat/Tanggal Lahir:</b> Bogor, 19 Mei 2008</p>
+                <p><b>Kelas:</b> XII RPL</p>
+                <p><b>Umur:</b> 17 Tahun</p>
+                <p><b>Hobi:</b> Olahraga</p>
+                <p><b>Alamat:</b> Taman Pagelaran Ciomas, Bogor</p>
+                <p><b>No HP:</b> 085930266131</p>
+                <p><b>Email:</b> azzmfaiq19@gmail.com</p>
             @endif
         </div>
 
