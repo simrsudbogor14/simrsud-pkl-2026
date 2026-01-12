@@ -22,8 +22,13 @@
         <div class="text-left space-y-2">
             @if($nama == 'bian')
                 <p><b>Nama:</b> Bian</p>
-                <p><b>Umur:</b> 16 Tahun</p>
-                <p><b>Hobi:</b> Ngoding</p>
+                <p><b>Tempat/Tanggal Lahir:</b> Bogor, 16 Juli 2008</p>
+                <p><b>Kelas:</b> XII RPL</p>
+                <p><b>Umur:</b> 17 Tahun</p>
+                <p><b>Hobi:</b> Game</p>
+                <p><b>Alamat:</b> Cemplang Baru Cilendek Barat, Bogor</p>
+                <p><b>No HP:</b> 081290223039</p>
+                <p><b>Email:</b> madefabian882@gmail.com</p>
             @endif
 
             @if($nama == 'rasya')
