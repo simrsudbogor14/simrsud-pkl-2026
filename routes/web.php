@@ -5,17 +5,24 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
+| HALAMAN AWAL (SOLUSI 404)
+|--------------------------------------------------------------------------
+*/
+Route::get('/', function () {
+    return redirect('/menu/bian');
+});
+
+/*
+|--------------------------------------------------------------------------
 | MENU BIODATA
 |--------------------------------------------------------------------------
 */
 Route::get('/menu/{nama}', function ($nama) {
 
-    // Validasi nama menu
     if (!in_array($nama, ['bian', 'rasya', 'faiq'])) {
         abort(404);
     }
 
-    // Ambil komentar dari session sesuai nama
     $comments = session()->get("comments_$nama", []);
 
     return view('menu', compact('nama', 'comments'));
