@@ -1,55 +1,58 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| MENU BIODATA
 |--------------------------------------------------------------------------
 */
-
-// Redirect awal
-Route::get('/', function () {
-    return redirect('/menu/bian');
-});
-
-// Halaman menu (bian / rasya / faiq)
 Route::get('/menu/{nama}', function ($nama) {
 
-    // Ambil semua komentar
-    $allComments = session('comments', []);
+    // Validasi nama menu
+    if (!in_array($nama, ['bian', 'rasya', 'faiq'])) {
+        abort(404);
+    }
 
-    // Ambil komentar khusus menu ini
-    $comments = $allComments[$nama] ?? [];
+    // Ambil komentar dari session sesuai nama
+    $comments = session()->get("comments_$nama", []);
 
     return view('menu', compact('nama', 'comments'));
 });
 
-// Simpan komentar per menu
+/*
+|--------------------------------------------------------------------------
+| TAMBAH KOMENTAR
+|--------------------------------------------------------------------------
+*/
 Route::post('/comment/{nama}', function (Request $request, $nama) {
 
-    $request->validate([
-        'nama' => 'required',
-        'isi'  => 'required',
-    ]);
+    $comments = session()->get("comments_$nama", []);
 
-    // Ambil semua komentar
-    $allComments = session('comments', []);
-
-    // Jika menu ini belum ada, buat array kosong
-    if (!isset($allComments[$nama])) {
-        $allComments[$nama] = [];
-    }
-
-    // Tambah komentar ke menu yg sesuai
-    $allComments[$nama][] = [
+    $comments[] = [
         'nama' => $request->nama,
         'isi'  => $request->isi,
     ];
 
-    // Simpan ke session
-    session(['comments' => $allComments]);
+    session()->put("comments_$nama", $comments);
+
+    return back();
+});
+
+/*
+|--------------------------------------------------------------------------
+| HAPUS KOMENTAR
+|--------------------------------------------------------------------------
+*/
+Route::delete('/comment/{nama}/{index}', function ($nama, $index) {
+
+    $comments = session()->get("comments_$nama", []);
+
+    if (isset($comments[$index])) {
+        unset($comments[$index]);
+        session()->put("comments_$nama", array_values($comments));
+    }
 
     return back();
 });
