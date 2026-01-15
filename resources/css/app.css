@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -9,3 +10,89 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Custom menu/profile styling */
+.profile-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,255,0.95));
+    border: 1px solid rgba(15,23,42,0.04);
+}
+
+.profile-photo {
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+.profile-photo:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(2,6,23,0.18);
+}
+
+.profile-name {
+    letter-spacing: .3px;
+}
+.profile-role {
+    font-size: .95rem;
+    color: rgba(107,114,128,1); /* gray-500 */
+}
+
+.profile-details p {
+    margin: 0.25rem 0;
+    color: rgba(51,65,85,0.95); /* slate-700 */
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+.profile-details b {
+    color: rgba(15,23,42,0.85);
+}
+
+.nav-group { gap: .75rem; }
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .38rem .7rem;
+    width: auto;
+    min-width: 0;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 14px rgba(2,6,23,0.08);
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+.nav-button:hover { transform: translateY(-2px); box-shadow: 0 10px 18px rgba(2,6,23,0.10); }
+
+/* Small responsive tweaks */
+@media (max-width: 420px) {
+    .profile-card { padding: 1.25rem; }
+    .nav-group { flex-direction: column; }
+    .nav-button { width: 100%; }
+}
+
+/* Extra decorative styles */
+.card-header { position: relative; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+.header-blob { display: none; }
+
+.badge {
+    display: inline-block;
+    background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(59,130,246,0.08));
+    padding: .28rem .6rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: rgba(30,41,59,0.9);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+}
+
+.detail-key { flex: 0 0 38%; max-width: 38%; color: rgba(99,102,120,0.9); font-weight:600; }
+.detail-val { flex: 1 1 62%; color: rgba(31,41,55,0.95); word-break: break-word; }
+.divider { height: 1px; background: linear-gradient(90deg, rgba(15,23,42,0.03), rgba(15,23,42,0.06), rgba(15,23,42,0.03)); border-radius: 2px; }
+
+.btn-icon { width: 14px; height: 14px; margin-right: .45rem; vertical-align: middle; opacity: .9 }
+
+/* Ensure buttons and photo are above any decorative elements */
+.profile-photo { position: relative; z-index: 10; }
+.nav-group, .nav-button { position: relative; z-index: 20; }
+.card-header { z-index: 0; }
+
+/* subtle card entrance */
+.profile-card { transform-origin: center; animation: cardEnter .42s cubic-bezier(.2,.9,.2,1) both; }
+@keyframes cardEnter { from { transform: translateY(8px) scale(.995); opacity: 0 } to { transform: translateY(0) scale(1); opacity: 1 } }
+
+
