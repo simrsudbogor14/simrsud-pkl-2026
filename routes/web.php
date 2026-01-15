@@ -2,15 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
-| HALAMAN AWAL (SOLUSI 404)
+| LOGIN
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return redirect('/menu/bian');
-});
+Route::get('/', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'doLogin']);
 
 /*
 |--------------------------------------------------------------------------
@@ -19,30 +19,43 @@ Route::get('/', function () {
 */
 Route::get('/menu/{nama}', function ($nama) {
 
+    if (!session('login')) {
+        return redirect('/');
+    }
+
     if (!in_array($nama, ['bian', 'rasya', 'faiq'])) {
         abort(404);
     }
 
-    $comments = session()->get("comments_$nama", []);
+    $allComments = session('comments', []);
+    $comments = $allComments[$nama] ?? [];
 
     return view('menu', compact('nama', 'comments'));
 });
 
 /*
 |--------------------------------------------------------------------------
-| TAMBAH KOMENTAR
+| SIMPAN KOMENTAR
 |--------------------------------------------------------------------------
 */
 Route::post('/comment/{nama}', function (Request $request, $nama) {
 
-    $comments = session()->get("comments_$nama", []);
+    if (!session('login')) {
+        return redirect('/');
+    }
 
-    $comments[] = [
+    $request->validate([
+        'nama' => 'required',
+        'isi'  => 'required',
+    ]);
+
+    $allComments = session('comments', []);
+    $allComments[$nama][] = [
         'nama' => $request->nama,
         'isi'  => $request->isi,
     ];
 
-    session()->put("comments_$nama", $comments);
+    session(['comments' => $allComments]);
 
     return back();
 });
@@ -54,11 +67,12 @@ Route::post('/comment/{nama}', function (Request $request, $nama) {
 */
 Route::delete('/comment/{nama}/{index}', function ($nama, $index) {
 
-    $comments = session()->get("comments_$nama", []);
+    $allComments = session('comments', []);
 
-    if (isset($comments[$index])) {
-        unset($comments[$index]);
-        session()->put("comments_$nama", array_values($comments));
+    if (isset($allComments[$nama][$index])) {
+        unset($allComments[$nama][$index]);
+        $allComments[$nama] = array_values($allComments[$nama]);
+        session(['comments' => $allComments]);
     }
 
     return back();

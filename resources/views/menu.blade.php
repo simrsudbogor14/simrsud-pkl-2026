@@ -20,7 +20,7 @@
 
             <div class="text-left space-y-2">
                 @if($nama == 'bian')
-                    <p><b>Nama:</b> Bian</p>
+                    <p><b>Nama:</b> I Made Fabian Radithya Taufiq</p>
                     <p><b>Umur:</b> 17 Tahun</p>
                     <p><b>Hobi:</b> Game</p>
                 @elseif($nama == 'rasya')
