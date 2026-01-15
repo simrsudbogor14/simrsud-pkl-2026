@@ -11,14 +11,14 @@ use App\Http\Controllers\AuthController;
 */
 
 // ===================
-// LOGIN (PAKAI CONTROLLER)
+// LOGIN 
 // ===================
 Route::get('/', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'doLogin']);
 
 
 // ===================
-// HALAMAN MENU (WAJIB LOGIN)
+// HALAMAN MENU
 // ===================
 Route::get('/menu/{nama}', function ($nama) {
 
