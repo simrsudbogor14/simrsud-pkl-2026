@@ -53,3 +53,18 @@ Route::post('/comment/{nama}', function (Request $request, $nama) {
 
     return back();
 });
+
+// Hapus komentar berdasarkan index di session
+Route::delete('/comment/{nama}/{index}', function (Request $request, $nama, $index) {
+    $allComments = session('comments', []);
+
+    if (!isset($allComments[$nama]) || !isset($allComments[$nama][$index])) {
+        return back();
+    }
+
+    array_splice($allComments[$nama], $index, 1);
+
+    session(['comments' => $allComments]);
+
+    return back();
+});
