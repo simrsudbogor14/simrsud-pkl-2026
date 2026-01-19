@@ -1,70 +1,81 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| LOGIN
 |--------------------------------------------------------------------------
 */
+Route::get('/', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'doLogin']);
 
-// Redirect awal
-Route::get('/', function () {
-    return redirect('/menu/bian');
-});
-
-// Halaman menu (bian / rasya / faiq)
+/*
+|--------------------------------------------------------------------------
+| MENU BIODATA
+|--------------------------------------------------------------------------
+*/
 Route::get('/menu/{nama}', function ($nama) {
 
-    // Ambil semua komentar
-    $allComments = session('comments', []);
+    if (!session('login')) {
+        return redirect('/');
+    }
 
-    // Ambil komentar khusus menu ini
+    if (!in_array($nama, ['bian', 'rasya', 'faiq'])) {
+        abort(404);
+    }
+
+    $allComments = session('comments', []);
     $comments = $allComments[$nama] ?? [];
 
     return view('menu', compact('nama', 'comments'));
 });
 
-// Simpan komentar per menu
+/*
+|--------------------------------------------------------------------------
+| SIMPAN KOMENTAR
+|--------------------------------------------------------------------------
+*/
 Route::post('/comment/{nama}', function (Request $request, $nama) {
+
+    if (!session('login')) {
+        return redirect('/');
+    }
 
     $request->validate([
         'nama' => 'required',
         'isi'  => 'required',
     ]);
 
-    // Ambil semua komentar
     $allComments = session('comments', []);
-
-    // Jika menu ini belum ada, buat array kosong
-    if (!isset($allComments[$nama])) {
-        $allComments[$nama] = [];
-    }
-
-    // Tambah komentar ke menu yg sesuai
     $allComments[$nama][] = [
         'nama' => $request->nama,
         'isi'  => $request->isi,
     ];
 
-    // Simpan ke session
     session(['comments' => $allComments]);
 
     return back();
 });
 
-// Hapus komentar berdasarkan index di session
-Route::delete('/comment/{nama}/{index}', function (Request $request, $nama, $index) {
+/*
+|--------------------------------------------------------------------------
+| HAPUS KOMENTAR
+|--------------------------------------------------------------------------
+*/
+Route::delete('/comment/{nama}/{index}', function ($nama, $index) {
+
     $allComments = session('comments', []);
 
-    if (!isset($allComments[$nama]) || !isset($allComments[$nama][$index])) {
-        return back();
+    if (isset($allComments[$nama][$index])) {
+        unset($allComments[$nama][$index]);
+        $allComments[$nama] = array_values($allComments[$nama]);
+        session(['comments' => $allComments]);
     }
-
-    array_splice($allComments[$nama], $index, 1);
-
-    session(['comments' => $allComments]);
 
     return back();
 });
+
+?>
