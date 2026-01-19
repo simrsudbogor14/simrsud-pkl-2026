@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         if ($request->username === 'admin' && $request->password === '12345') {
             Session::put('login', true);
-            return redirect('/menu/bian');
+            return redirect('/menu/fabian');
         }
 
         return back()->with('error', 'Username atau password salah');
