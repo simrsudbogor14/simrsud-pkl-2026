@@ -31,6 +31,8 @@
 
                 @if($nama == 'rasya')
                     <p><b>Nama:</b> Rasya</p>
+                    <p><b>TTL:</b> Bogor, 5 Mei 2008</p>
+                    <p><b>Kelas:</b> XII RPL</p>
                     <p><b>Umur:</b> 17 Tahun</p>
                     <p><b>Hobi:</b> Mancing</p>
                     <p><b>Alamat:</b> Pabuaran Poncol, Bogor</p>
@@ -57,14 +59,14 @@
         </div>
 
         {{-- ================= KOMENTAR ================= --}}
-        <div class="bg-white rounded-2xl shadow-lg p-6 w-[380px]">
+        <div class="bg-white rounded-2xl shadow-lg p-6 w-[380px] h-[600px] flex flex-col">
 
-            <h2 class="text-xl font-bold mb-4 text-center">
+            <h2 class="text-xl font-bold mb-4 text-center flex-shrink-0">
                 Komentar untuk {{ ucfirst($nama) }}
             </h2>
 
             {{-- FORM KOMENTAR --}}
-            <form action="/comment/{{ $nama }}" method="POST">
+            <form action="/comment/{{ $nama }}" method="POST" class="flex-shrink-0 mb-4">
                 @csrf
 
                 <input
@@ -92,11 +94,20 @@
             </form>
 
             {{-- LIST KOMENTAR --}}
-            <div class="mt-5 space-y-3">
+            <div class="space-y-3 overflow-y-auto flex-1 min-h-0">
                 @forelse ($comments as $comment)
-                    <div class="border rounded-lg p-3">
-                        <p class="font-semibold">{{ $comment['nama'] }}</p>
-                        <p class="text-sm text-gray-600">{{ $comment['isi'] }}</p>
+                    <div class="border rounded-lg p-3 flex justify-between items-start">
+                        <div class="flex-1">
+                            <p class="font-semibold">{{ $comment['nama'] }}</p>
+                            <p class="text-sm text-gray-600">{{ $comment['isi'] }}</p>
+                        </div>
+                        <form action="/comment/{{ $nama }}/{{ $loop->index }}" method="POST" class="ml-2" onsubmit="return confirm('Yakin ingin menghapus komentar ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-semibold">
+                                Hapus
+                            </button>
+                        </form>
                     </div>
                 @empty
                     <p class="text-center text-gray-400 text-sm">
