@@ -35,7 +35,6 @@
                     <p><b>Kelas:</b> XII RPL</p>
                     <p><b>Umur:</b> 17 Tahun</p>
                     <p><b>Hobi:</b> Mancing</p>
-                    <p><b>Alamat:</b> Pabuaran Poncol, Bogor</p>
                     <p><b>Email:</b> mrasyasaputra15@gmail.com</p>
                 @endif
 
