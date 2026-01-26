@@ -61,12 +61,12 @@
         {{-- ================= KOMENTAR ================= --}}
         <div class="bg-white rounded-2xl shadow-lg p-6 w-[380px] h-[600px] flex flex-col">
 
-            <h2 class="text-xl font-bold mb-4 text-center flex-shrink-0">
+            <h2 class="text-xl font-bold mb-4 text-center shrink-0">
                 Komentar untuk {{ ucfirst($nama) }}
             </h2>
 
             {{-- FORM KOMENTAR --}}
-            <form action="/comment/{{ $nama }}" method="POST" class="flex-shrink-0 mb-4">
+            <form action="/comment/{{ $nama }}" method="POST" class="shrink-0 mb-4">
                 @csrf
 
                 <input
