@@ -52,7 +52,7 @@
             {{-- NAVIGASI --}}
             <div class="flex justify-center gap-4 mt-6">
                 <a href="/menu/bian" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Bian</a>
-                <a href="/menu/rasya" class="px-4 py-2 bg-green-500 text-white rounded-lg">Rasya</a>
+                <a href="/menu/rasya" class="nav-link px-4 py-2 bg-red-500 text-white rounded-lg">Rasya</a>
                 <a href="/menu/faiq" class="px-4 py-2 bg-purple-500 text-white rounded-lg">Faiq</a>
             </div>
         </div>
